@@ -70,7 +70,7 @@ outputs:
 
 steps:
   trimming:
-    run: trim_galore.cwl
+    run: "../tools/trim_galore.cwl"
     in:
       read1: r1
       read2: r2
@@ -86,7 +86,7 @@ steps:
     out: [read1_trimmed, read2_trimmed, log]
 
   mapping:
-    run: gsnap.cwl
+    run: "../tools/gsnap.cwl"
     in:
       ref: ref
       r1: trimming/read1_trimmed
@@ -94,37 +94,37 @@ steps:
     out: [sam]
 
   samtools_view_sam2bam:
-    run: samtools_view_sam2bam.cwl  
+    run: "../tools/samtools_view_sam2bam.cwl"  
     in:
         sam: mapping/sam
     out: [bam_unsorted]
 
   addRG:
-    run: picard_addRG.cwl
+    run: "../tools/picard_addRG.cwl"
     in:
       bam_withoutRG: samtools_view_sam2bam/bam_unsorted
     out: [bam_withRG]
 
   samtools_sort:
-    run: samtools_sort.cwl  
+    run: "../tools/samtools_sort.cwl" 
     in:
         bam_unsorted: addRG/bam_withRG
     out: [bam_sorted]
 
   remove_duplicates:
-    run: picard_markdup.cwl
+    run: "../tools/picard_markdup.cwl"
     in:
         bam_sorted: samtools_sort/bam_sorted
     out: [bam_duprem]
 
   samtools_index:
-    run: samtools_index.cwl  
+    run: "../tools/samtools_index.cwl"  
     in:
         bam_sorted: remove_duplicates/bam_duprem
     out: [bam_sorted_indexed]    
 
   calling:
-    run: bissnp_bisulfite_genotyper.cwl
+    run: "../tools/bissnp_bisulfite_genotyper.cwl"
     in: 
       reference: reference
       dbsnp: dbsnp
