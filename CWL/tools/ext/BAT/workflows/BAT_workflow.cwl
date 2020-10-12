@@ -20,7 +20,7 @@ outputs:
 
 steps:
   mapping:
-    run: BAT_mapping.cwl
+    run: "../tools/BAT_mapping.cwl"
     in:
       reference: reference
       query: query
@@ -31,7 +31,7 @@ steps:
     out: [bam]
 
   calling:
-    run: BAT_calling.cwl
+    run: "../tools/BAT_calling.cwl"
     in: 
       reference: reference
       query: mapping/bam
