@@ -3,12 +3,18 @@
 cwlVersion: v1.0
 class: Workflow
 inputs:
-  reference: File
-  query: File
-  mate_pair: File
-  prefix_db: string
-  prefix_location: Directory
-  path_outfiles: string
+  - id : reference
+    type: File
+  - id: query
+    type: 'File[]'
+  - id: mate_pair
+    type: 'File[]'
+  - id: prefix_db
+    type: string
+  - id: prefix_location
+    type: Directory
+  - id: path_outfiles
+    type: string
 
 outputs:
   bam:

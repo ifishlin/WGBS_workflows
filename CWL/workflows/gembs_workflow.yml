@@ -1,0 +1,23 @@
+barcode: 
+    - A001XS1
+    - A001XS1
+
+dataset:
+    - sample1_data_a
+    - sample1_data_b
+
+r1:
+    - class: File
+      path: /home/yuyulin/CWL/gemBS/gemBS_example/fastq/sample1/sample1_data_a_1.fastq.gz
+    - class: File
+      path: /home/yuyulin/CWL/gemBS/gemBS_example/fastq/sample1/sample1_data_b_1.fastq.gz
+
+r2:
+    - class: File
+      path: /home/yuyulin/CWL/gemBS/gemBS_example/fastq/sample1/sample1_data_a_2.fastq.gz
+    - class: File
+      path: /home/yuyulin/CWL/gemBS/gemBS_example/fastq/sample1/sample1_data_b_2.fastq.gz
+
+reference:
+    class: File
+    path: /home/yuyulin/CWL/gemBS/cwl/gemBS/gemBS_main/hg_GRCh38_PhiX_Lambda.fa

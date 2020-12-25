@@ -1,0 +1,18 @@
+sample_id:
+  - test
+r1:
+  - class: File
+    path: /home/yuyulin/CWL/gsnap/fasta1.fq.gz
+
+r2:
+  - class: File
+    path: /home/yuyulin/CWL/gsnap/fasta2.fq.gz
+
+reference:
+  class: File
+  path: /home/yuyulin/CWL/gsnap/reference/hg_GRCh38_PhiX_Lambda.fa
+
+ref:
+  class: Directory
+  path: /home/yuyulin/CWL/gsnap/ref
+

@@ -1,0 +1,18 @@
+reference:
+    class: File
+    path: /home/yuyulin/CWL/BAT/cwl/workflows/genomes/hg19/hg19_chr19.fa
+query:
+    - class: File
+      path: /home/yuyulin/CWL/BAT/BAT_example_structure/raw/S5.1_R1.fastq.gz
+    - class: File
+      path: /home/yuyulin/CWL/BAT/BAT_example_structure/raw/S5.2_R1.fastq.gz
+mate_pair:
+    - class: File
+      path: /home/yuyulin/CWL/BAT/BAT_example_structure/raw/S5.1_R2.fastq.gz
+    - class: File
+      path: /home/yuyulin/CWL/BAT/BAT_example_structure/raw/S5.2_R2.fastq.gz
+path_outfiles: 
+    - S5.1 #the prefix of the outfiles
+    - S5.2
+threads: 24
+sample_id: S5
