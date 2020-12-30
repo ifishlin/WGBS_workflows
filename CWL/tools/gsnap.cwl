@@ -15,6 +15,8 @@ requirements:
       - $(inputs.ref)
   InlineJavascriptRequirement: {}
 
+stdout: $(inputs.sample_id + ".gsnap.log")
+
 inputs:
   - id: sample_id
     type: string
@@ -45,3 +47,5 @@ outputs:
     type: File
     outputBinding:
       glob: "*.bam"
+  - id: gsnap_log
+    type: stdout

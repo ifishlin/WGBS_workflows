@@ -16,3 +16,4 @@ ref:
   class: Directory
   path: /home/yuyulin/CWL/gsnap/ref
 
+threads: 24

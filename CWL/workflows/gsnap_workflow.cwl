@@ -17,6 +17,8 @@ inputs:
     type: 'File[]'
   - id: ref
     type: Directory
+  - id: threads
+    type: string
  
 steps:
   - id: mapping
@@ -29,6 +31,7 @@ steps:
        ref: ref
     out: 
        - bam
+       - gsnap_log
     scatter:
        - sample_id
        - r1 
@@ -53,15 +56,32 @@ steps:
         source: sorting/bam_sorted
     out:
       - id: bam_duprem
+      - id: picard_markdup_log
+      - id: picard_markdup_stat
     scatter:
       - bam_sorted
+    scatterMethod: dotproduct
+
+  - id: addRG
+    run: "../tools/picard_addRG.cwl"
+    in:
+      - id: bam_withoutRG
+        source: dedup/bam_duprem
+      - id: ID
+        source: sample_id
+    out:
+      - id: bam_withRG
+      - id: picard_withRG_log
+    scatter:
+      - bam_withoutRG
+      - ID
     scatterMethod: dotproduct
 
   - id: indexes
     run: "../tools/samtools_index.cwl"
     in: 
       - id: bam_sorted
-        source: dedup/bam_duprem
+        source: addRG/bam_withRG
     out:
       - id: bam_sorted_indexed
     scatter: 
@@ -75,9 +95,24 @@ outputs:
   #bam_sorted:
   #  type: File[]
   #  outputSource: sorting/bam_sorted
-  bam_duprem:
+  #bam_duprem:
+  #  type: File[]
+  #  outputSource: dedup/bam_duprem
+  bam_withRG:
     type: File[]
-    outputSource: dedup/bam_duprem
+    outputSource: addRG/bam_withRG
   bam_sorted_indexed:
     type: File[]
     outputSource: indexes/bam_sorted_indexed
+  #gsnap_log:
+  #  type: File[]
+  #  outputSource: mapping/gsnap_log 
+  #picard_markdup_log:
+  #  type: File[]
+  #  outputSource: dedup/picard_markdup_log
+  #picard_withRG_log:
+  #  type: File[]
+  #  outputSource: addRG/picard_withRG_log
+  picard_markdup_stat:
+    type: File[]
+    outputSource: dedup/picard_markdup_stat

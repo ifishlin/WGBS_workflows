@@ -53,4 +53,7 @@ outputs:
       glob: $(inputs.bam_sorted.nameroot + "_duprem.bam")
   picard_markdup_log:
     type: stdout
-    
+  picard_markdup_stat:
+    type: File
+    outputBinding:
+      glob: "*.log"  

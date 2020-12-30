@@ -11,7 +11,8 @@ hints:
 
 baseCommand: ["samtools", "sort"]
 arguments:
-  - valueFrom: $(runtime.cores)
+  #- valueFrom: $(runtime.cores)
+  valueFrom: 24
     prefix: -@
 
 inputs:
