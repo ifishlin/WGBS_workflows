@@ -41,6 +41,17 @@ inputs:
     inputBinding:
       prefix: -r
       position: 5
+  left_trim:
+    type: int
+    inputBinding:
+      prefix: "--left_trim"
+      position: 6
+  right_trim:
+    type: int
+    inputBinding:
+      prefix: "--right_trim"
+      position: 7
+
 
 outputs: 
   - id: sample_csv

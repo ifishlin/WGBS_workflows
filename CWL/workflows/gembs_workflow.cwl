@@ -17,6 +17,10 @@ inputs:
     type: 'File[]'
   - id: reference
     type: File
+  - id: left_trim
+    type: int
+  - id: right_trim
+    type: int
 
 steps:
   - id: create_conf
@@ -31,6 +35,10 @@ steps:
           source: r2
         - id: reference
           source: reference
+        - id: left_trim
+          source: left_trim
+        - id: right_trim
+          source: right_trim
     out:
         - id: sample_csv
         - id: sample_conf

@@ -20,4 +20,7 @@ r2:
 
 reference:
     class: File
-    path: /home/yuyulin/CWL/gemBS/cwl/gemBS/gemBS_main/hg_GRCh38_PhiX_Lambda.fa
+    path: /home/yuyulin/CWL/hg_GRCh38_PhiX_Lambda.fa
+
+left_trim: 9
+right_trim: 0

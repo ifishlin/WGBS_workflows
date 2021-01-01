@@ -8,6 +8,8 @@ parser.add_argument('-d', type=str, required=True, help='dataset')
 parser.add_argument('-q', type=str, required=True, help='read1')
 parser.add_argument('-p', type=str, required=True, help='read2')
 parser.add_argument('-r', type=str, required=True, help='reference')
+parser.add_argument('--left_trim', type=int, default=5, required=False, help='IHEC left_trim default=5')
+parser.add_argument('--right_trim', type=int, default=0, required=False, help='IHEC right_trim default=0')
 
 args = parser.parse_args()
 
@@ -16,12 +18,16 @@ datasets = args.d.split(",")
 read1 = args.q.split(",")
 read2 = args.p.split(",")
 ref = args.r
+lt = str(args.left_trim)
+rt = str(args.right_trim)
 
 print(barcodes)
 print(datasets)
 print(read1)
 print(read2)
 print(ref)
+print(lt)
+print(rt)
 
 def basename(name):
     if name.rfind('/') == -1:
@@ -43,7 +49,7 @@ f.close()
 
 import subprocess
 
-batcmd="sed 's/@reference/"+ ref + "/g' /IHEC_standard_template.conf"
+batcmd="sed 's/@reference/"+ ref + "/g; s/@left_trim/"+ lt + "/g; s/@right_trim/"+ rt + "/g; ' /IHEC_standard_template.conf"
 result = subprocess.check_output(batcmd, shell=True)
 f = open("IHEC_standard_instance.conf", "w")
 encoding = 'utf-8'
