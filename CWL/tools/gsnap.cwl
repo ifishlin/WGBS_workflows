@@ -2,7 +2,6 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: run_gsnap.sh
 requirements:
   DockerRequirement:
     dockerPull: ifishlin324/gsnap
@@ -14,19 +13,35 @@ requirements:
       - $(inputs.reference)
       - $(inputs.ref)
   InlineJavascriptRequirement: {}
+  ShellCommandRequirement: {}
 
+stderr: $(inputs.sample_id + ".gsnap.log")
 stdout: $(inputs.sample_id + ".gsnap.log")
+
+baseCommand: ["gsnap", "--gunzip", "-O", "-A", "sam"]
+arguments:
+  - valueFrom: "|"
+    position: 5
+    shellQuote: false
+  - valueFrom: samtools
+    position: 6
+  - valueFrom: view
+    position: 7 
+  - valueFrom: "-b"
+    position: 8
+  - prefix: "-o"
+    valueFrom: $(inputs.sample_id).bam
+    position: 9
+
 
 inputs:
   - id: sample_id
     type: string
-    inputBinding:
-      position: 5
   - id: reference
     type: File
     inputBinding:
       position: 1
-      #prefix: -d
+      prefix: "-d"
       valueFrom: $(self.basename)
   - id: r1
     type: File
@@ -39,13 +54,19 @@ inputs:
   - id: ref
     type: Directory
     inputBinding:
-      #prefix: -D
+      prefix: -D
       position: 2
-    
+  - id: threads
+    type: int  
+    default: 1
+    inputBinding:
+      prefix: "-t"
+      position: 1 
+ 
 outputs: 
   - id: bam
     type: File
     outputBinding:
       glob: "*.bam"
   - id: gsnap_log
-    type: stdout
+    type: stderr
