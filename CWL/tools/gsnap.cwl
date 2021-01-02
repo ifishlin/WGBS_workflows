@@ -15,8 +15,8 @@ requirements:
   InlineJavascriptRequirement: {}
   ShellCommandRequirement: {}
 
+stdout: stderr
 stderr: $(inputs.sample_id + ".gsnap.log")
-stdout: $(inputs.sample_id + ".gsnap.log")
 
 baseCommand: ["gsnap", "--gunzip", "-O", "-A", "sam"]
 arguments:
