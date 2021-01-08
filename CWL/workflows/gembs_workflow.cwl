@@ -23,6 +23,9 @@ inputs:
   - id: right_trim
     type: int
     default: 0
+  - id: pbat
+    type: boolean
+    default: False
 
 steps:
   - id: create_conf
@@ -41,6 +44,8 @@ steps:
           source: left_trim
         - id: right_trim
           source: right_trim
+        - id: pbat
+          source: pbat
     out:
         - id: sample_csv
         - id: sample_conf

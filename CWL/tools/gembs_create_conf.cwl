@@ -51,6 +51,11 @@ inputs:
     inputBinding:
       prefix: "--right_trim"
       position: 7
+  pbat:
+    type: boolean
+    inputBinding:
+      prefix: "--pbat"
+      position: 8
 
 
 outputs: 
