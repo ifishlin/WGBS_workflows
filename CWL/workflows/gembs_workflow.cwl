@@ -19,8 +19,10 @@ inputs:
     type: File
   - id: left_trim
     type: int
+    default: 5
   - id: right_trim
     type: int
+    default: 0
 
 steps:
   - id: create_conf

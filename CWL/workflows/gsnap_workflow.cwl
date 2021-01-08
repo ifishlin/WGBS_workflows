@@ -18,7 +18,7 @@ inputs:
   - id: ref
     type: Directory
   - id: threads
-    type: string
+    type: int
  
 steps:
   - id: mapping
@@ -77,16 +77,21 @@ steps:
       - ID
     scatterMethod: dotproduct
 
+  - id: merge_and_sort
+    run: "../tools/samtools_merge_and_sort.cwl"
+    in:
+      - id: bams
+        source: addRG/bam_withRG
+    out:
+      - id: bam_merged
+
   - id: indexes
     run: "../tools/samtools_index.cwl"
     in: 
       - id: bam_sorted
-        source: addRG/bam_withRG
+        source: merge_and_sort/bam_merged
     out:
       - id: bam_sorted_indexed
-    scatter: 
-      - bam_sorted
-    scatterMethod: dotproduct
 
 outputs: 
   #bam:
@@ -98,21 +103,21 @@ outputs:
   #bam_duprem:
   #  type: File[]
   #  outputSource: dedup/bam_duprem
-  bam_withRG:
-    type: File[]
-    outputSource: addRG/bam_withRG
+  bam_merged:
+    type: File
+    outputSource: merge_and_sort/bam_merged
   bam_sorted_indexed:
-    type: File[]
+    type: File
     outputSource: indexes/bam_sorted_indexed
   #gsnap_log:
   #  type: File[]
   #  outputSource: mapping/gsnap_log 
-  #picard_markdup_log:
-  #  type: File[]
-  #  outputSource: dedup/picard_markdup_log
-  #picard_withRG_log:
-  #  type: File[]
-  #  outputSource: addRG/picard_withRG_log
+  picard_markdup_log:
+    type: File[]
+    outputSource: dedup/picard_markdup_log
+  picard_withRG_log:
+    type: File[]
+    outputSource: addRG/picard_withRG_log
   picard_markdup_stat:
     type: File[]
     outputSource: dedup/picard_markdup_stat
