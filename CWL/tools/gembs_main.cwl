@@ -5,7 +5,7 @@ class: CommandLineTool
 baseCommand: run_gembs.sh
 requirements:
   DockerRequirement:
-    dockerPull: ifishlin324/gembs:1.1 
+    dockerPull: ifishlin324/gembs #:1.1 
     dockerOutputDirectory: /opt
   InitialWorkDirRequirement:
     listing:

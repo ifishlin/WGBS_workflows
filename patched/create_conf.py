@@ -35,7 +35,7 @@ print(pbat)
 if(pbat):
     pbat_config = "#PBAT\\nnon-stranded = True\\nkeep_improper_pairs = True\\n"
 else:
-    pbat_config = "\n"
+    pbat_config = "\\n"
 
 def basename(name):
     if name.rfind('/') == -1:
