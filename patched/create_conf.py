@@ -33,7 +33,7 @@ print(rt)
 print(pbat)
 
 if(pbat):
-    pbat_config = "#PBAT\\nnon-stranded = True\\nkeep_improper_pairs = True\\n"
+    pbat_config = "[mapping]\\nnon_stranded = True\\n[calling]keep_improper_pairs = True\\n"
 else:
     pbat_config = "\\n"
 
