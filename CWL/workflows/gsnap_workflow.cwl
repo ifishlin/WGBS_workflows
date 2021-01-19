@@ -29,6 +29,7 @@ steps:
        r1: r1
        r2: r2
        ref: ref
+       threads: threads
     out: 
        - bam
        - gsnap_log
