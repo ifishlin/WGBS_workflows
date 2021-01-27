@@ -22,7 +22,7 @@ inputs:
  
 steps:
   - id: mapping
-    run: "../tools/gsnap_nonstranded.cwl"
+    run: "../tools/gsnap_stranded.cwl"
     in: 
        sample_id: sample_id 
        reference: reference
@@ -78,11 +78,21 @@ steps:
       - ID
     scatterMethod: dotproduct
 
+  - id: merge_and_sort
+    run: "../tools/samtools_merge_and_sort.cwl"
+    in:
+      - id: bams
+        source: addRG/bam_withRG
+      - id: threads
+        source: threads
+    out:
+      - id: bam_merged
+
   - id: indexes
     run: "../tools/samtools_index.cwl"
     in: 
       - id: bam_sorted
-        source: addRG/bam_withRG
+        source: merge_and_sort/bam_merged
     out:
       - id: bam_sorted_indexed
 
@@ -96,9 +106,9 @@ outputs:
   #bam_duprem:
   #  type: File[]
   #  outputSource: dedup/bam_duprem
-  bam_withRG:
+  bam_merged:
     type: File
-    outputSource: addRG/bam_withRG
+    outputSource: merge_and_sort/bam_merged
   bam_sorted_indexed:
     type: File
     outputSource: indexes/bam_sorted_indexed

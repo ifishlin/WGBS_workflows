@@ -78,19 +78,11 @@ steps:
       - ID
     scatterMethod: dotproduct
 
-  - id: merge_and_sort
-    run: "../tools/samtools_merge_and_sort.cwl"
-    in:
-      - id: bams
-        source: addRG/bam_withRG
-    out:
-      - id: bam_merged
-
   - id: indexes
     run: "../tools/samtools_index.cwl"
     in: 
       - id: bam_sorted
-        source: merge_and_sort/bam_merged
+        source: addRG/bam_withRG
     out:
       - id: bam_sorted_indexed
 
@@ -104,9 +96,9 @@ outputs:
   #bam_duprem:
   #  type: File[]
   #  outputSource: dedup/bam_duprem
-  bam_merged:
+  bam_withRG:
     type: File
-    outputSource: merge_and_sort/bam_merged
+    outputSource: addRG/bam_withRG
   bam_sorted_indexed:
     type: File
     outputSource: indexes/bam_sorted_indexed
