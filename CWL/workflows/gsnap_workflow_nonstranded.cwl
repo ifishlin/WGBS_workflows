@@ -83,6 +83,8 @@ steps:
     in: 
       - id: bam_sorted
         source: addRG/bam_withRG
+    scatter:
+      - bam_sorted
     out:
       - id: bam_sorted_indexed
 
@@ -97,10 +99,10 @@ outputs:
   #  type: File[]
   #  outputSource: dedup/bam_duprem
   bam_withRG:
-    type: File
+    type: File[]
     outputSource: addRG/bam_withRG
   bam_sorted_indexed:
-    type: File
+    type: File[]
     outputSource: indexes/bam_sorted_indexed
   #gsnap_log:
   #  type: File[]
